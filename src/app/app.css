@@ -1,0 +1,15 @@
+header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 24px;
+  background-color: var(--primary-color);
+  box-shadow: 0 2px 4px var(--shadow-color);
+  color: white;
+  font-size: 32px;
+  font-weight: bold;
+}
+
+header img {
+  border-radius: 8px;
+}
