@@ -1,0 +1,54 @@
+table {
+  width: 100%;
+  margin: 16px 0;
+  box-shadow: 0 1px 3px var(--shadow-color);
+}
+
+th {
+  font-weight: bold;
+  text-align: left;
+  border-bottom: 2px solid var(--primary-color);
+  color: var(--text-color);
+}
+
+td {
+  padding: 8px 16px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+tr:hover {
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+tr[mat-row] {
+  cursor: pointer;
+}
+
+ng-container[matColumnDef="description"] {
+  max-width: 100px;
+}
+
+input {
+  width: 50px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 8px;
+  font-size: 14px;
+  outline: none;
+}
+
+.center-cell {
+  text-align: center;
+}
+
+.cell-description {
+  white-space: pre-line;
+  word-wrap: break-word;
+  max-width: 400px;
+}
+
+@media (max-width: 899px) {
+  ng-container[matColumnDef="description"] {
+    visibility: hidden;
+  }
+}

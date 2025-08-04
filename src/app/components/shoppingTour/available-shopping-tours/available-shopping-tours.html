@@ -1,0 +1,22 @@
+<div class="shopping-tours-container">
+  <div class="shopping-tours-header">
+    <h1>Aktuelle Bestellangebote:</h1>
+    <button matFab extended (click)="openShoppingTourForm()">
+      <mat-icon>add</mat-icon>
+      Neuen Einkauf anbieten
+    </button>
+  </div>
+  <div class="shopping-tours-content">
+    @for (
+      availableShoppingTours of shoppingTourService.getShoppingToursGroupedByDay(); track availableShoppingTours.date) {
+      <div class="date-container">
+        <h3 class="date-header">{{ availableShoppingTours.date | date:'d. MMMM yyyy' }}</h3>
+        <div class="shopping-tours-list">
+          @for (shoppingTour of availableShoppingTours.shoppingTours; track shoppingTour.id) {
+            <app-shopping-tour-card [shoppingTour]="shoppingTour"></app-shopping-tour-card>
+          }
+        </div>
+      </div>
+    }
+  </div>
+</div>

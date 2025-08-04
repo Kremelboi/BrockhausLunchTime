@@ -1,0 +1,64 @@
+<form [formGroup]="orderForm" (ngSubmit)="submitOrder()">
+  <div class="form-container">
+    <mat-form-field class="name-form">
+      <mat-label>Name</mat-label>
+      <input matInput placeholder="Name" formControlName="name">
+      @if (orderForm.get('name')?.invalid && orderForm.get('name')?.touched) {
+        <mat-error>
+          Name ist erforderlich
+        </mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Bestellung</mat-label>
+      <textarea matInput placeholder="Bestellung" formControlName="description"></textarea>
+      @if (orderForm.get('description')?.invalid && orderForm.get('description')?.touched) {
+        <mat-error>
+          Bestellung ist erforderlich
+        </mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field class="price-form">
+      <mat-label>Preis</mat-label>
+      <input matInput type="number" placeholder="Preis" formControlName="price">
+      @if (orderForm.get('price')?.invalid && orderForm.get('price')?.touched) {
+        <mat-error>
+          Preis ist erforderlich
+        </mat-error>
+      }
+    </mat-form-field>
+
+    <div class="payment-container">
+      <mat-checkbox class="payment-text" formControlName="paid">
+        Bereits bezahlt
+      </mat-checkbox>
+      <a
+        class="payment-text"
+        [href]="payPalLink"
+        target="_blank"
+        rel="noopener noreferrer"
+        [class.disabled]="isPaid"
+        [style.pointer-events]="isPaid ? 'none' : 'auto'"
+      >
+        Jetzt bezahlen
+      </a>
+    </div>
+
+    <mat-checkbox class="payment-text" formControlName="wantsToJoin">
+      Einkäufer:in begleiten
+    </mat-checkbox>
+  </div>
+  <div class="button-container">
+    @let order = existingOrder();
+    @if (order) {
+      <button matButton="elevated" type="button" (click)="cancelOrder(order.id)" class="dialog-button">
+        Bestellung stornieren
+      </button>
+    }
+    <button matButton="elevated" type="submit" [disabled]="orderForm.invalid" class="dialog-button">
+      {{ existingOrder() ? 'Bestellung aktualisieren' : 'Bestellung hinzufügen' }}
+    </button>
+  </div>
+</form>

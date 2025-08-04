@@ -1,0 +1,8 @@
+<div class="dialog-container">
+  <h2>{{ data?.order ? 'Bestellung bearbeiten' : 'Neue Bestellung aufgeben' }}</h2>
+  <app-order-form
+    [existingOrder]="data?.order"
+    [shoppingTourId]="data?.shoppingTourId"
+    (closeDialog)="closeDialog()"
+  ></app-order-form>
+</div>

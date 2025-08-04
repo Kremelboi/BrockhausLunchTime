@@ -1,1 +1,82 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --primary-color: #b71f40;
+  --secondary-color: #ffe8d9;
+  --secondary-light: #ffffff;
+  --text-color: #2e2e2e;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background-color: var(--secondary-color);
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  color: var(--text-color);
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+mat-checkbox {
+  margin-bottom: 1rem;
+}
+
+textarea {
+  min-height: 100px;
+}
+
+button[matButton],
+button[matFab],
+button[matMiniFab] {
+  background-color: var(--primary-color) !important;
+  color: white !important;
+}
+
+.dialog-button {
+  width: 100%
+}
+
+button[disabled],
+.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  text-decoration: none;
+  color: gray;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.dialog-container {
+  padding: 1rem;
+  background: white;
+  border-radius: 8px;
+  min-width: 400px;
+}
+
+.dialog-backdrop {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}

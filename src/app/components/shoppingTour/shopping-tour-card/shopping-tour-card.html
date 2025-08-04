@@ -1,0 +1,24 @@
+<mat-card (click)="editShoppingTour(shoppingTour())">
+  <mat-card-header>
+    <mat-card-title>{{ shoppingTour().shopName }}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="order-content">
+      <p class="description">Einkäufer:in: {{ shoppingTour().name }}</p>
+      <div class="button-container">
+        <button matFab matTooltip="Bestellung hinzufügen"
+                (click)="addOrderToShoppingTour( shoppingTour().id); $event.stopPropagation()">
+          <mat-icon>add</mat-icon>
+        </button>
+        <button matFab matTooltip="Bestellungen anzeigen"
+                (click)="openOrderList(shoppingTour().id, false); $event.stopPropagation()">
+          <mat-icon>list</mat-icon>
+        </button>
+        <button matFab matTooltip="Bezahlstatus einsehen"
+                (click)="openOrderList(shoppingTour().id, true); $event.stopPropagation()">
+          <mat-icon>payments</mat-icon>
+        </button>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
