@@ -27,7 +27,6 @@ export class OrderForm implements OnInit {
   shoppingTourId = input<string>();
   @Output() closeDialog = new EventEmitter<void>();
   orderForm: FormGroup;
-  protected payPalLink = "";
   protected shoppingTourService = inject(ShoppingTourService);
   private orderService = inject(OrderService)
 
@@ -46,11 +45,6 @@ export class OrderForm implements OnInit {
   }
 
   ngOnInit() {
-    const shoppingTourId = this.existingOrder()?.shoppingTourId;
-    if (shoppingTourId) {
-      const payPalLink = this.shoppingTourService.getPayPalLinkForShoppingTour(shoppingTourId)
-      this.payPalLink = payPalLink ? payPalLink : "";
-    }
     const order = this.existingOrder();
     if (order) {
       this.orderForm.patchValue({

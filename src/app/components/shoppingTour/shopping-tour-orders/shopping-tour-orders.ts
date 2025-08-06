@@ -50,11 +50,14 @@ export class ShoppingTourOrders implements OnInit {
   shoppingTourId = input.required<string>();
   isBuyer = input.required<boolean>()
   displayedColumns: string[] = [];
+  orders: Order[] = [];
+  payPalLink: string = "";
   protected orderService = inject(OrderService);
   protected shoppingTourService = inject(ShoppingTourService);
   private dialog = inject(Dialog)
 
   ngOnInit(): void {
+    this.loadData()
     if (this.isBuyer()) {
       this.displayedColumns = ['name', 'description', 'wantsToJoin', 'paid', 'price', 'amountPaid']
     } else {
@@ -62,14 +65,26 @@ export class ShoppingTourOrders implements OnInit {
     }
   }
 
+  private loadData(): void {
+    this.orderService.getOrdersByShoppingTourId(this.shoppingTourId()).subscribe(ordersByShoppingTourId => {
+      this.orders = ordersByShoppingTourId;
+    })
+    this.shoppingTourService.getPayPalLinkForShoppingTour(this.shoppingTourId()).subscribe(link => {
+      this.payPalLink = link;
+    })
+  }
+
   editOrder(existingOrder: Order) {
-    this.dialog.open(OrderFormDialog, {
+    const orderFormDialogRef = this.dialog.open(OrderFormDialog, {
       hasBackdrop: true,
       backdropClass: 'dialog-backdrop',
       data: {
         order: existingOrder
       }
     });
+    orderFormDialogRef.closed.subscribe(() => {
+      this.loadData();
+    })
   }
 
   updatePaymentStatus(order: Order): void {
@@ -95,9 +110,8 @@ export class ShoppingTourOrders implements OnInit {
   }
 
   openPayPalLink(): void {
-    const link = this.shoppingTourService.getPayPalLinkForShoppingTour(this.shoppingTourId());
-    if (link) {
-      window.open(link, '_blank');
+    if (this.payPalLink) {
+      window.open(this.payPalLink, '_blank');
     }
   }
 }

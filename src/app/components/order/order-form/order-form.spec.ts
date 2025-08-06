@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { OrderForm } from './order-form';
+import {OrderForm} from './order-form';
 
 describe('OrderForm', () => {
   let component: OrderForm;
@@ -10,7 +10,7 @@ describe('OrderForm', () => {
     await TestBed.configureTestingModule({
       imports: [OrderForm]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(OrderForm);
     component = fixture.componentInstance;

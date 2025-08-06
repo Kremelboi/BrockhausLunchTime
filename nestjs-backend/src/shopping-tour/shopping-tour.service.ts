@@ -36,7 +36,9 @@ export class ShoppingTourService {
   }
 
   getShoppingToursGroupedByDay(): GroupedShoppingTours {
+    console.log("Service")
     const shoppingTours: ShoppingTour[] = this.getShoppingTours();
+    console.log(shoppingTours)
     if (shoppingTours.length === 0) {
       return [];
     }

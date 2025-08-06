@@ -1,84 +1,47 @@
-import {inject, Injectable, signal} from '@angular/core';
-import {OrderService} from './order-service';
-import {DateString, GroupedShoppingTours, ShoppingTour} from '../model/shoppingTour-model';
+import {inject, Injectable} from '@angular/core';
+import {GroupedShoppingTours, ShoppingTour} from '../model/shoppingTour-model';
+import {HttpClient, httpResource, HttpResourceRef} from '@angular/common/http';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ShoppingTourService {
-  private readonly storageKey = 'shoppingtours';
-  private shoppingTours = signal<ShoppingTour[]>(this.loadShoppingTours());
+  http = inject(HttpClient);
+  private readonly groupedToursResource: HttpResourceRef<GroupedShoppingTours | undefined>;
 
-  private orderService = inject(OrderService);
-
-  private loadShoppingTours() {
-    const data = localStorage.getItem(this.storageKey);
-    return data ? JSON.parse(data) : [];
+  constructor() {
+    this.groupedToursResource = httpResource<GroupedShoppingTours>(() => ({
+      url: 'http://localhost:3000/shopping-tour/groupedByDay',
+      method: 'GET',
+    }));
   }
 
-  getShoppingToursGroupedByDay(): GroupedShoppingTours {
-    const shoppingToursMap = this.shoppingTours().reduce((grouped, shoppingTour) => {
-      const dayKey = new Intl.DateTimeFormat('de-DE', {
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-        timeZone: 'Europe/Berlin'
-      })
-        .format(new Date(shoppingTour.date))
-        .split('.')
-        .reverse()
-        .join('-') as DateString;
-      if (!grouped.has(dayKey)) {
-        grouped.set(dayKey, []);
-      }
-
-      grouped.get(dayKey)!.push(shoppingTour);
-      return grouped;
-    }, new Map<DateString, ShoppingTour[]>());
-    return Array.from(shoppingToursMap.entries())
-      .map(([date, shoppingTours]) => ({
-        date,
-        shoppingTours: shoppingTours
-      }))
-      .sort((a, b) => a.date.localeCompare(b.date));
+  refreshGroupedTours() {
+    this.groupedToursResource.reload()
   }
 
-  getPayPalLinkForShoppingTour(shoppingTourId: string) {
-    const shoppingTour = this.shoppingTours().find(shoppingTour => {
-      return shoppingTour.id === shoppingTourId;
-    })
-    return shoppingTour?.payPalLink
+  getGroupedShoppingToursSignal() {
+    console.log("GetSignal")
+    return this.groupedToursResource.value;
+  }
+
+  getPayPalLinkForShoppingTour(shoppingTourId: string): Observable<string> {
+    return this.http.get(
+      `http://localhost:3000/shopping-tour/payPalLink/${shoppingTourId}`,
+      {responseType: 'text' as const}
+    );
   }
 
   addShoppingTour(shoppingTour: Omit<ShoppingTour, 'id'>): void {
-    const newShoppingTour: ShoppingTour = {
-      ...shoppingTour,
-      id: crypto.randomUUID()
-    };
-
-    this.shoppingTours.update(shoppingTours => {
-      const newShoppingTours = [...shoppingTours, newShoppingTour];
-      localStorage.setItem(this.storageKey, JSON.stringify(newShoppingTours));
-      return newShoppingTours;
-    });
+    this.http.post<ShoppingTour>('http://localhost:3000/shopping-tour', shoppingTour).subscribe()
   }
 
   updateShoppingTour(updatedShoppingTour: ShoppingTour): void {
-    this.shoppingTours.update(shoppingTours => {
-      const newShoppingTours = shoppingTours.map(shoppingTour =>
-        shoppingTour.id === updatedShoppingTour.id ? updatedShoppingTour : shoppingTour
-      );
-      localStorage.setItem(this.storageKey, JSON.stringify(newShoppingTours));
-      return newShoppingTours;
-    })
+    this.http.put<ShoppingTour>('http://localhost:3000/shopping-tour', updatedShoppingTour).subscribe()
   }
 
   deleteShoppingTour(shoppingTourId: string): void {
-    this.orderService.deleteOrdersWithShoppingTourId(shoppingTourId);
-    this.shoppingTours.update(shoppingTours => {
-      const newShoppingTours = shoppingTours.filter(shoppingTour => shoppingTour.id !== shoppingTourId);
-      localStorage.setItem(this.storageKey, JSON.stringify(newShoppingTours));
-      return newShoppingTours;
-    })
+    this.http.delete<ShoppingTour>(`http://localhost:3000/shopping-tour/${shoppingTourId}`).subscribe()
   }
 }

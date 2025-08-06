@@ -41,6 +41,10 @@ input {
   text-align: center;
 }
 
+mat-checkbox {
+  margin: 0;
+}
+
 .cell-description {
   white-space: pre-line;
   word-wrap: break-word;
@@ -48,7 +52,7 @@ input {
 }
 
 @media (max-width: 899px) {
-  ng-container[matColumnDef="description"] {
-    visibility: hidden;
+  .description-column {
+    display: none;
   }
 }
