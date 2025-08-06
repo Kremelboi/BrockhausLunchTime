@@ -22,7 +22,6 @@ export class ShoppingTourService {
   }
 
   getGroupedShoppingToursSignal() {
-    console.log("GetSignal")
     return this.groupedToursResource.value;
   }
 

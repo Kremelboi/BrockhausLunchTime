@@ -12,7 +12,7 @@
 
     <mat-form-field>
       <mat-label>Bestellung</mat-label>
-      <textarea formControlName="description" matInput placeholder="Bestellung"></textarea>
+      <textarea formControlName="description" matInput placeholder="Was möchtest du essen?"></textarea>
       @if (orderForm.get('description')?.invalid && orderForm.get('description')?.touched) {
         <mat-error>
           Bestellung ist erforderlich
@@ -21,8 +21,8 @@
     </mat-form-field>
 
     <mat-form-field class="price-form">
-      <mat-label>Preis</mat-label>
-      <input formControlName="price" matInput placeholder="Preis" type="number">
+      <mat-label>Preis in €</mat-label>
+      <input formControlName="price" matInput placeholder="Preis in €" type="number">
       @if (orderForm.get('price')?.invalid && orderForm.get('price')?.touched) {
         <mat-error>
           Preis ist erforderlich
@@ -37,7 +37,7 @@
       @let tourId = shoppingTourId();
       <a
         [class.disabled]="isPaid"
-        [href]="tourId ? shoppingTourService.getPayPalLinkForShoppingTour(tourId) : ''"
+        [href]="payPalLink"
         [style.pointer-events]="isPaid ? 'none' : 'auto'"
         class="payment-text"
         rel="noopener noreferrer"

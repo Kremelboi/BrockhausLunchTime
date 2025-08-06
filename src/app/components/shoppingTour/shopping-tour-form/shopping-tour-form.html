@@ -2,7 +2,7 @@
   <div class="form-container">
     <mat-form-field class="name-form">
       <mat-label>Name</mat-label>
-      <input formControlName="name" matInput placeholder="Name">
+      <input formControlName="name" matInput placeholder="Dein Name">
       @if (shoppingTourForm.get('name')?.invalid && shoppingTourForm.get('name')?.touched) {
         <mat-error>
           Name ist erforderlich
@@ -12,7 +12,7 @@
 
     <mat-form-field>
       <mat-label>Name des Ladens</mat-label>
-      <input formControlName="shopName" matInput placeholder="Shop Name">
+      <input formControlName="shopName" matInput placeholder="Name des Ladens">
       @if (shoppingTourForm.get('shopName')?.invalid && shoppingTourForm.get('shopName')?.touched) {
         <mat-error>
           Name des Ladens ist erforderlich
@@ -33,8 +33,8 @@
     </mat-form-field>
 
     <mat-form-field class="name-form">
-      <mat-label>PayPal Link</mat-label>
-      <input formControlName="payPalLink" matInput placeholder="PayPal Link">
+      <mat-label>Link zu deinem PayPal</mat-label>
+      <input formControlName="payPalLink" matInput placeholder="https://paypal.me/...">
       @if (shoppingTourForm.get('payPalLink')?.invalid && shoppingTourForm.get('payPalLink')?.touched) {
         <mat-error>
           Bitte einen gültigen PayPal Link eingeben

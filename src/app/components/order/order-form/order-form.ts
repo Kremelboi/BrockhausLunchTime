@@ -27,6 +27,7 @@ export class OrderForm implements OnInit {
   shoppingTourId = input<string>();
   @Output() closeDialog = new EventEmitter<void>();
   orderForm: FormGroup;
+  payPalLink: string = "";
   protected shoppingTourService = inject(ShoppingTourService);
   private orderService = inject(OrderService)
 
@@ -45,6 +46,7 @@ export class OrderForm implements OnInit {
   }
 
   ngOnInit() {
+    this.loadData()
     const order = this.existingOrder();
     if (order) {
       this.orderForm.patchValue({
@@ -81,5 +83,14 @@ export class OrderForm implements OnInit {
   cancelOrder(orderId: string): void {
     this.orderService.deleteOrder(orderId);
     this.closeDialog.emit();
+  }
+
+  loadData(): void {
+    const shoppingTourId = this.shoppingTourId();
+    if (shoppingTourId) {
+      this.shoppingTourService.getPayPalLinkForShoppingTour(shoppingTourId).subscribe(link => {
+        this.payPalLink = link;
+      })
+    }
   }
 }

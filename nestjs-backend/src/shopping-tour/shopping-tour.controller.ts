@@ -14,7 +14,6 @@ export class ShoppingTourController {
 
   @Get("groupedByDay")
   getShoppingToursGroupedByDay(): GroupedShoppingTours {
-    console.log("Controller")
     return this.shoppingTourService.getShoppingToursGroupedByDay();
   }
 
