@@ -1,7 +1,7 @@
 <div class="dialog-container">
   <h2>{{ data ? 'Einkauf bearbeiten' : 'Neuen Einkauf erstellen' }}</h2>
   <app-shopping-tour-form
-    [existingShoppingTour]="data?.shoppingTour"
     (closeDialog)="closeDialog()"
+    [existingShoppingTour]="data?.shoppingTour"
   ></app-shopping-tour-form>
 </div>

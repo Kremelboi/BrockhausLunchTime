@@ -1,8 +1,8 @@
-<form [formGroup]="shoppingTourForm" (ngSubmit)="submitShoppingTour()">
+<form (ngSubmit)="submitShoppingTour()" [formGroup]="shoppingTourForm">
   <div class="form-container">
     <mat-form-field class="name-form">
       <mat-label>Name</mat-label>
-      <input matInput placeholder="Name" formControlName="name">
+      <input formControlName="name" matInput placeholder="Name">
       @if (shoppingTourForm.get('name')?.invalid && shoppingTourForm.get('name')?.touched) {
         <mat-error>
           Name ist erforderlich
@@ -12,7 +12,7 @@
 
     <mat-form-field>
       <mat-label>Name des Ladens</mat-label>
-      <input matInput placeholder="Shop Name" formControlName="shopName">
+      <input formControlName="shopName" matInput placeholder="Shop Name">
       @if (shoppingTourForm.get('shopName')?.invalid && shoppingTourForm.get('shopName')?.touched) {
         <mat-error>
           Name des Ladens ist erforderlich
@@ -22,8 +22,8 @@
 
     <mat-form-field>
       <mat-label>Datum</mat-label>
-      <input matInput [matDatepicker]="picker" placeholder="Date" formControlName="date">
-      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <input [matDatepicker]="picker" formControlName="date" matInput placeholder="Date">
+      <mat-datepicker-toggle [for]="picker" matIconSuffix></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
       @if (shoppingTourForm.get('date')?.invalid && shoppingTourForm.get('date')?.touched) {
         <mat-error>
@@ -34,7 +34,7 @@
 
     <mat-form-field class="name-form">
       <mat-label>PayPal Link</mat-label>
-      <input matInput placeholder="PayPal Link" formControlName="payPalLink">
+      <input formControlName="payPalLink" matInput placeholder="PayPal Link">
       @if (shoppingTourForm.get('payPalLink')?.invalid && shoppingTourForm.get('payPalLink')?.touched) {
         <mat-error>
           Bitte einen gültigen PayPal Link eingeben
@@ -51,7 +51,7 @@
         Einkauf stornieren
       </button>
     }
-    <button matButton="elevated" type="submit" [disabled]="shoppingTourForm.invalid" class="dialog-button">
+    <button [disabled]="shoppingTourForm.invalid" class="dialog-button" matButton="elevated" type="submit">
       {{ shoppingTour ? 'Einkauf aktualisieren' : 'Einkauf hinzufügen' }}
     </button>
   </div>

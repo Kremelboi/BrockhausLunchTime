@@ -65,15 +65,6 @@ export class ShoppingTourOrders implements OnInit {
     }
   }
 
-  private loadData(): void {
-    this.orderService.getOrdersByShoppingTourId(this.shoppingTourId()).subscribe(ordersByShoppingTourId => {
-      this.orders = ordersByShoppingTourId;
-    })
-    this.shoppingTourService.getPayPalLinkForShoppingTour(this.shoppingTourId()).subscribe(link => {
-      this.payPalLink = link;
-    })
-  }
-
   editOrder(existingOrder: Order) {
     const orderFormDialogRef = this.dialog.open(OrderFormDialog, {
       hasBackdrop: true,
@@ -113,5 +104,14 @@ export class ShoppingTourOrders implements OnInit {
     if (this.payPalLink) {
       window.open(this.payPalLink, '_blank');
     }
+  }
+
+  private loadData(): void {
+    this.orderService.getOrdersByShoppingTourId(this.shoppingTourId()).subscribe(ordersByShoppingTourId => {
+      this.orders = ordersByShoppingTourId;
+    })
+    this.shoppingTourService.getPayPalLinkForShoppingTour(this.shoppingTourId()).subscribe(link => {
+      this.payPalLink = link;
+    })
   }
 }

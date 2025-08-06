@@ -6,16 +6,16 @@
     <div class="order-content">
       <p class="description">Einkäufer:in: {{ shoppingTour().name }}</p>
       <div class="button-container">
-        <button matFab matTooltip="Bestellung hinzufügen"
-                (click)="addOrderToShoppingTour( shoppingTour().id); $event.stopPropagation()">
+        <button (click)="addOrderToShoppingTour( shoppingTour().id); $event.stopPropagation()" matFab
+                matTooltip="Bestellung hinzufügen">
           <mat-icon>add</mat-icon>
         </button>
-        <button matFab matTooltip="Bestellungen anzeigen"
-                (click)="openOrderList(shoppingTour().id, false); $event.stopPropagation()">
+        <button (click)="openOrderList(shoppingTour().id, false); $event.stopPropagation()" matFab
+                matTooltip="Bestellungen anzeigen">
           <mat-icon>list</mat-icon>
         </button>
-        <button matFab matTooltip="Bezahlstatus einsehen"
-                (click)="openOrderList(shoppingTour().id, true); $event.stopPropagation()">
+        <button (click)="openOrderList(shoppingTour().id, true); $event.stopPropagation()" matFab
+                matTooltip="Bezahlstatus einsehen">
           <mat-icon>payments</mat-icon>
         </button>
       </div>

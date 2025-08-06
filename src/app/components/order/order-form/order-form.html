@@ -1,8 +1,8 @@
-<form [formGroup]="orderForm" (ngSubmit)="submitOrder()">
+<form (ngSubmit)="submitOrder()" [formGroup]="orderForm">
   <div class="form-container">
     <mat-form-field class="name-form">
       <mat-label>Name</mat-label>
-      <input matInput placeholder="Name" formControlName="name">
+      <input formControlName="name" matInput placeholder="Name">
       @if (orderForm.get('name')?.invalid && orderForm.get('name')?.touched) {
         <mat-error>
           Name ist erforderlich
@@ -12,7 +12,7 @@
 
     <mat-form-field>
       <mat-label>Bestellung</mat-label>
-      <textarea matInput placeholder="Bestellung" formControlName="description"></textarea>
+      <textarea formControlName="description" matInput placeholder="Bestellung"></textarea>
       @if (orderForm.get('description')?.invalid && orderForm.get('description')?.touched) {
         <mat-error>
           Bestellung ist erforderlich
@@ -22,7 +22,7 @@
 
     <mat-form-field class="price-form">
       <mat-label>Preis</mat-label>
-      <input matInput type="number" placeholder="Preis" formControlName="price">
+      <input formControlName="price" matInput placeholder="Preis" type="number">
       @if (orderForm.get('price')?.invalid && orderForm.get('price')?.touched) {
         <mat-error>
           Preis ist erforderlich
@@ -36,12 +36,12 @@
       </mat-checkbox>
       @let tourId = shoppingTourId();
       <a
-        class="payment-text"
-        [href]="tourId ? shoppingTourService.getPayPalLinkForShoppingTour(tourId) : ''"
-        target="_blank"
-        rel="noopener noreferrer"
         [class.disabled]="isPaid"
+        [href]="tourId ? shoppingTourService.getPayPalLinkForShoppingTour(tourId) : ''"
         [style.pointer-events]="isPaid ? 'none' : 'auto'"
+        class="payment-text"
+        rel="noopener noreferrer"
+        target="_blank"
       >
         Jetzt bezahlen
       </a>
@@ -58,7 +58,7 @@
         Bestellung stornieren
       </button>
     }
-    <button matButton="elevated" type="submit" [disabled]="orderForm.invalid" class="dialog-button">
+    <button [disabled]="orderForm.invalid" class="dialog-button" matButton="elevated" type="submit">
       {{ existingOrder() ? 'Bestellung aktualisieren' : 'Bestellung hinzufügen' }}
     </button>
   </div>
