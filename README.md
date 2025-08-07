@@ -2,6 +2,21 @@
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.1.0.
 
+## Ausbaustufe 4:
+Damit die App regelmäßig Aktualisierungen vom Server erhalten kann kommen verschiedene Methoden in Frage:
+
+1. HTTP Polling
+   - Client fragt in bestimmten Intervall neue Daten vom Server an
+   - Wäre einfach zu implementieren, sorgt aber für erhöhte Last auf dem Server, da auch Requests gemacht werden wenn keine Änderungen vorliegen.
+2. Websockets
+   - Änderungen werden direkt vom Server an den Client gesendet
+   - Gut bei mehreren parallelen Nutzern
+   - Wird von NestJS out-of-the-box unterstützt
+3. Server-Sent Events
+   - Alternative zu Websockets, einfacher aber unidirektional 
+
+Am sinnvollsten wäre hier vermutlich die Verwendung von Websockets, da diese eine geringe Netzwerklast aufweisen und Änderungen schneller übermittelt werden als beispielsweise beim HTTP Polling. Außerdem werden Websockets von NestJS unterstützt und sie bieten Vorteile gegenüber Server-Sent Events hinsichtlich Flexibilität, Plattform-Kompatibilität und Sicherheit. Jedoch hat man mit der Konfiguration mehr Aufwand und für eine kleine interne Applikation wie diese hier wären auch die beiden anderen Optionen meiner Meinung nach völlig ausreichend.
+
 ## Development server
 
 To start a local development server, run:
