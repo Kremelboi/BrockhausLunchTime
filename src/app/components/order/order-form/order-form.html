@@ -34,7 +34,6 @@
       <mat-checkbox class="payment-text" formControlName="paid">
         Bereits bezahlt
       </mat-checkbox>
-      @let tourId = shoppingTourId();
       <a
         [class.disabled]="isPaid"
         [href]="payPalLink"
